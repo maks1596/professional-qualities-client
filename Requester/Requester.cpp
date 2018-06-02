@@ -104,7 +104,7 @@ void Requester::onReplyReceived(QNetworkReply *reply) {
 		} else {
 			emit success();
 		}
-	} else {
+    } else {
         emit failure(reply->errorString());
     }
     reply->deleteLater();

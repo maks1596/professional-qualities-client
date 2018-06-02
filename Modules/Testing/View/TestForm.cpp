@@ -4,6 +4,10 @@
 #include <QLabel>
 #include <QMessageBox>
 
+#ifdef QT_DEBUG
+#include <QTime>
+#endif
+
 #include "../Model/TestingModel.h"
 #include "Forms/QuestionForm/QuestionForm.h"
 #include "Forms/ResultForm/ResultForm.h"
@@ -47,6 +51,30 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
 			this, &TestForm::onFinishTestBtnClicked);
 
 	initModel();
+
+#ifdef QT_DEBUG
+    auto randomAnswersButton = new QPushButton("Radom", this);
+    connect(randomAnswersButton, &QPushButton::clicked,
+            [this]() {
+        Answers answers;
+        auto answerOptions = m_test.getGeneralAnswerOptions();
+        int answerOptionsCount = answerOptions.size();
+        qsrand(QTime::currentTime().msecsSinceStartOfDay());
+
+        for (const auto &question : m_test.getQuestions()) {
+            if (m_test.getAnswerOptionsType() == AnswerOptionsType::UNIQUE) {
+                answerOptions = question.getAnswerOptions();
+                answerOptionsCount = answerOptions.size();
+            }
+
+            int answerIndex = qrand() % answerOptionsCount;
+            auto answerOption = answerOptions[answerIndex];
+            answers.append(Answer(question.getId(), answerOption.getId()));
+        }
+        sendAnswers(answers);
+    });
+    ui->buttonsHorizontalLayout->addWidget(randomAnswersButton);
+#endif
 }
 
 //  :: Destructor ::
