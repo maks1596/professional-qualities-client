@@ -131,26 +131,40 @@ void TestForm::onFinishTestBtnClicked() {
 void TestForm::showResults(const ScaleResults &results) {
 	initResults(results);
     ui->stackedWidget->setCurrentIndex(RESULTS_PAGE);
+    updateResultsTestNameLabel();
 }
 
 //  :: Private methods ::
+//  :: Update test name labels ::
 void TestForm::updateTestNameLabels() {
     switch (ui->stackedWidget->currentIndex()) {
     case QUESTIONS_PAGE:
         updateQuestionsTestNameLabel();
+        break;
+
+    case RESULTS_PAGE:
+        updateResultsTestNameLabel();
         break;
     }
 }
 void TestForm::updateQuestionsTestNameLabel() {
     setQuestionsTestNameLabelText(m_test.getName());
 }
+void TestForm::updateResultsTestNameLabel() {
+    setResultsTestNameLabelText(m_test.getName());
+}
 
+//  :: Set test name ::
 void TestForm::setTestName(const QString &testName) {
     ui->instructionTestNameLabel->setText(testName);
     setQuestionsTestNameLabelText(testName);
+    setResultsTestNameLabelText(testName);
 }
 void TestForm::setQuestionsTestNameLabelText(const QString &testName) {
     setElidedText(ui->questionsTestNameLabel, testName);
+}
+void TestForm::setResultsTestNameLabelText(const QString &testName) {
+    setElidedText(ui->resultsTestNameLabel, testName);
 }
 
 void TestForm::setElidedText(QLabel *label, const QString &text) {

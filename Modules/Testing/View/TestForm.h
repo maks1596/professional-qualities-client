@@ -38,9 +38,11 @@ private slots:
 private:
     void updateTestNameLabels();
     void updateQuestionsTestNameLabel();
+    void updateResultsTestNameLabel();
 
     void setTestName(const QString &testName);
     void setQuestionsTestNameLabelText(const QString &testName);
+    void setResultsTestNameLabelText(const QString &testName);
 
     void setElidedText(QLabel *label, const QString &text);
     QString elidedText(const QLabel *label, const QString &text) const;
