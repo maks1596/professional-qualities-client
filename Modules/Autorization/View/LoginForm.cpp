@@ -31,7 +31,7 @@ LoginForm::LoginForm(QWidget *parent) :
 			this, &LoginForm::onLoginBtnClicked);
 
 #ifdef QT_DEBUG
-    ui->login->setText("tested");
+    ui->login->setText("user");
     ui->password->setText("password");
 #endif
 
