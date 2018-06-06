@@ -33,7 +33,7 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
 	ui->setupUi(this);
 	ui->stackedWidget->setCurrentIndex(INSTRUCTION_PAGE);
 
-	ui->nameLbl->setText(m_test.getName());
+    setTestName(m_test.getName());
 	ui->instrucationLbl->setText(m_test.getInstruction());
 
 	connect(ui->backBtn, &QPushButton::clicked,
@@ -79,14 +79,22 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
 
 //  :: Destructor ::
 TestForm::~TestForm() {
-	delete ui;
+    delete ui;
+}
+
+//  :: Protected methods ::
+
+void TestForm::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+    updateTestNameLabels();
 }
 
 //  :: Private slots ::
 
 void TestForm::showQuestions() {
-	initQuestions();
+    initQuestions();
 	ui->stackedWidget->setCurrentIndex(QUESTIONS_PAGE);
+    updateQuestionsTestNameLabel();
 }
 
 void TestForm::onHelpBtnClicked() {
@@ -122,10 +130,38 @@ void TestForm::onFinishTestBtnClicked() {
 
 void TestForm::showResults(const ScaleResults &results) {
 	initResults(results);
-	ui->stackedWidget->setCurrentIndex(RESULTS_PAGE);
+    ui->stackedWidget->setCurrentIndex(RESULTS_PAGE);
 }
 
 //  :: Private methods ::
+void TestForm::updateTestNameLabels() {
+    switch (ui->stackedWidget->currentIndex()) {
+    case QUESTIONS_PAGE:
+        updateQuestionsTestNameLabel();
+        break;
+    }
+}
+void TestForm::updateQuestionsTestNameLabel() {
+    setQuestionsTestNameLabelText(m_test.getName());
+}
+
+void TestForm::setTestName(const QString &testName) {
+    ui->instructionTestNameLabel->setText(testName);
+    setQuestionsTestNameLabelText(testName);
+}
+void TestForm::setQuestionsTestNameLabelText(const QString &testName) {
+    setElidedText(ui->questionsTestNameLabel, testName);
+}
+
+void TestForm::setElidedText(QLabel *label, const QString &text) {
+    label->setText(elidedText(label, text));
+}
+QString TestForm::elidedText(const QLabel *label, const QString &text) const {
+    auto font = label->font();
+    auto width = label->width();
+    QFontMetrics fontMetrics(font);
+    return fontMetrics.elidedText(text, Qt::ElideRight, width);
+}
 
 void TestForm::initModel() {
 	m_model = new TestingModel(this);

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <QWidget>
-#include <QList>
 
 #include "Entities/Test/Test.h"
 #include "Entities/Answer/Answer.h"
 #include "Entities/ScaleResult/ScaleResult.h"
+
+class QLabel;
 
 namespace Ui {
 class TestForm;
@@ -25,6 +26,9 @@ signals:
 	void canceled();
 	void error(const QString &error);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+
 private slots:
 	void onHelpBtnClicked();
 	void showQuestions();
@@ -32,6 +36,15 @@ private slots:
 	void showResults(const ScaleResults &results);
 
 private:
+    void updateTestNameLabels();
+    void updateQuestionsTestNameLabel();
+
+    void setTestName(const QString &testName);
+    void setQuestionsTestNameLabelText(const QString &testName);
+
+    void setElidedText(QLabel *label, const QString &text);
+    QString elidedText(const QLabel *label, const QString &text) const;
+
 	void initModel();
 	void initQuestions();
 	void sendAnswers(const Answers &answers);
