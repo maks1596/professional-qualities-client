@@ -25,8 +25,7 @@ public:
 	void setTests(const QList<TestWithStatus> &tests);
 
 private slots:
-	void onTestClicked(const QModelIndex &idx);
-	void onTestPressed(const QModelIndex &idx);
+    void onTestDoubleClicked(const QModelIndex &idx);
 
 	void onTestsGot(const QList<TestWithStatus> &tests);
 	void onTestGot(const Test &test);
@@ -46,7 +45,6 @@ private:
 	int getTestId(const QModelIndex &idx) const;
 
 private:
-	int m_selectedRow = -1;
 	QTimer *m_timer;
 	TestsModel *m_model;
 	QList<TestWithStatus> m_tests;

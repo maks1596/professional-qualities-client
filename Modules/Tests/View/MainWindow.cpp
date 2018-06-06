@@ -27,12 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 
-	connect(ui->testsTableWidget, &QTableWidget::clicked,
-			this, &MainWindow::onTestClicked);
-	connect(ui->testsTableWidget, &QTableWidget::pressed,
-			this, &MainWindow::onTestPressed);
-	connect(ui->testsTableWidget, &QTableWidget::entered,
-			this, &MainWindow::onTestPressed);
+    connect(ui->testsTableWidget, &QTableWidget::doubleClicked,
+            this, &MainWindow::onTestDoubleClicked);
 
 	initTestsTable();
 	initModel();
@@ -66,18 +62,9 @@ void MainWindow::setTests(const QList<TestWithStatus> &tests) {
 
 //  :: Private slots ::
 
-void MainWindow::onTestClicked(const QModelIndex &idx) {
+void MainWindow::onTestDoubleClicked(const QModelIndex &idx) {
 	if(idx.isValid()) {
 		loadTest(getTestId(idx));
-	}
-}
-
-void MainWindow::onTestPressed(const QModelIndex &idx) {
-	if(idx.isValid()) {
-		m_selectedRow = idx.row();
-		ui->testsTableWidget->selectRow(m_selectedRow);
-	} else {
-		m_selectedRow = -1;
 	}
 }
 
