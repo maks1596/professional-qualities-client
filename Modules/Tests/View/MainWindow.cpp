@@ -11,16 +11,21 @@
 
 //  :: Constants ::
 
-const uint UPDATE_INTERVAL = 1000;
-
-enum ColumnIndexes {
-	NAME,
-	STATUS,
-	COLUMNS_AMOUNT
+const QStringList kHorizontalHeaders = {
+    "Название теста",
+    "Статус"
 };
 
+enum ColumnIndexes {
+    NAME,
+    STATUS,
+    COLUMNS_AMOUNT
+};
+
+const uint UPDATE_INTERVAL = 1000;
+
 //  :: Lifecycle ::
-//  :: Constructors ::
+
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
@@ -35,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	initTimer();
 }
 
-//  :: Destructor ::
 MainWindow::~MainWindow() {
 	delete ui;
 }
@@ -104,9 +108,7 @@ void MainWindow::showStatusMessage(const QString &message) {
 //  :: Initialization ::
 void MainWindow::initTestsTable() {
 	ui->testsTableWidget->setColumnCount(COLUMNS_AMOUNT);
-	ui->testsTableWidget->setHorizontalHeaderLabels({"Название теста",
-													 "Статус",
-													 "Удаление"});
+    ui->testsTableWidget->setHorizontalHeaderLabels(kHorizontalHeaders);
 	ui->testsTableWidget->horizontalHeader()
 			->setSectionResizeMode(NAME, QHeaderView::Stretch);
 }
