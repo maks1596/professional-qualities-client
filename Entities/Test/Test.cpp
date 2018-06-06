@@ -23,7 +23,7 @@ struct Test::Implementation {
 	int id = 0;
 	QString name = "";
 	QString instruction = "";
-	AnswerOptionsType type;
+    AnswerOptionsType type = GENERAL;
 	AnswerOptions generalAnswerOptions;
 	Questions questions;
 };

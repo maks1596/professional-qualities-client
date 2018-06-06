@@ -85,7 +85,7 @@ void Configurator::writeDefaultConfigurationsFile() {
     auto iter = m_configurations.cbegin();
     while(iter != m_configurations.cend()) {
         fstream << iter.key() << " = " << *iter << "\r\n";
-        iter++;
+        ++iter;
     }
     file.close();
 }

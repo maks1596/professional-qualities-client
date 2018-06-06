@@ -10,7 +10,7 @@ public:
 	//  :: Lifecycle ::
 	//  :: Constructors ::
 	AutorizationData();
-	AutorizationData(const QString login, const QString password);
+    AutorizationData(const QString &login, const QString &password);
 
 	//  :: Copy ::
 	AutorizationData(const AutorizationData &other);

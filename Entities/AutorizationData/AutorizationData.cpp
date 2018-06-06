@@ -20,8 +20,8 @@ AutorizationData::AutorizationData()
 	: pimpl(new Implementation())
 { }
 
-AutorizationData::AutorizationData(const QString login,
-								   const QString password)
+AutorizationData::AutorizationData(const QString &login,
+                                   const QString &password)
 	: AutorizationData()
 {
 	setLogin(login);
