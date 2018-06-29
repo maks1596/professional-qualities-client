@@ -10,7 +10,7 @@ QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Professional_qualities_client
+TARGET = ProfessionalQualitiesUser
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -89,6 +89,3 @@ FORMS    += Modules/Tests/View/MainWindow.ui \
     Forms/ResultForm/ResultForm.ui \
     Modules/Autorization/View/LoginForm.ui \
     Modules/Registration/View/RegistrationForm.ui
-
-# Для статической сборки
-QMAKE_LFLAGS_RELEASE += -static -static-libgcc
