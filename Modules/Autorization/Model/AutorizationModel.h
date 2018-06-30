@@ -4,7 +4,7 @@
 
 class AutorizationData;
 
-class AutorizationModel : public BaseModel {
+class AutorizationModel : public BaseService {
 Q_OBJECT
 
 public:

@@ -12,7 +12,7 @@ const QString USER_ID_JSON_KEY = "userId";
 //  :: Lifecycle ::
 
 RegistrationModel::RegistrationModel(QObject *parent) :
-	BaseModel(parent) { }
+	BaseService(parent) { }
 
 //  :: Public methods ::
 

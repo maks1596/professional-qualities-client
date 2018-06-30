@@ -4,7 +4,7 @@
 #include "Entities/Answer/Answer.h"
 #include "Entities/ScaleResult/ScaleResult.h"
 
-class TestingModel : public BaseModel {
+class TestingModel : public BaseService {
 Q_OBJECT
 public:
 	TestingModel(QObject *parent = nullptr);

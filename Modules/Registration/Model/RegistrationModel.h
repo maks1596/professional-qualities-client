@@ -4,7 +4,7 @@
 
 class RegistrationData;
 
-class RegistrationModel : public BaseModel {
+class RegistrationModel : public BaseService {
 	Q_OBJECT
 
 public:

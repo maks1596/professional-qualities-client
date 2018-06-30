@@ -15,7 +15,7 @@ const QString GET_TEST_API = "tests/%1";
 
 //  :: Lifecycle ::
 TestsModel::TestsModel(QObject *parent/*= nullptr*/)
-	: BaseModel(parent)
+    : BaseService(parent)
 { }
 
 //  :: Public methods ::

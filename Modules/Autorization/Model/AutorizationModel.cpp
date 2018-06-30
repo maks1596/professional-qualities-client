@@ -12,7 +12,7 @@ const QString USER_ID_JSON_KEY = "userId";
 //  :: Lifecycle ::
 
 AutorizationModel::AutorizationModel(QObject *parent/*= nullptr*/)
-	: BaseModel(parent)
+	: BaseService(parent)
 { }
 
 //  :: Public methods ::
@@ -21,7 +21,7 @@ void AutorizationModel::autorize(const AutorizationData &data) const {
 	auto requester = makeRequester();
 
 	disconnect(requester, &Requester::failure,
-			   this, &BaseModel::error);
+			   this, &BaseService::error);
 	connect(requester, &Requester::failure,
 			this, &AutorizationModel::autorizationFailed);
 	connect(requester, SIGNAL(success(QJsonObject)),

@@ -7,7 +7,7 @@
 class Test;
 class TestWithStatus;
 
-class TestsModel : public BaseModel {
+class TestsModel : public BaseService {
 Q_OBJECT
 public:
 	TestsModel(QObject *parent = nullptr);

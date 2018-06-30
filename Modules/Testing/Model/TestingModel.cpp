@@ -14,7 +14,7 @@ const QString COUNT_RESULTS_API = "tests/count-results";
 //  :: Lifecycle ::
 
 TestingModel::TestingModel(QObject *parent/*= nullptr*/)
-	: BaseModel(parent)
+	: BaseService(parent)
 { }
 
 //  :: Public methods ::

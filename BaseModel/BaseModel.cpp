@@ -3,10 +3,10 @@
 #include "Requester/Requester.h"
 #include "Configurator/Configurator.h"
 
-BaseModel::BaseModel(QObject *parent/*= nullptr*/)
+BaseService::BaseService(QObject *parent/*= nullptr*/)
 	: QObject(parent) {}
 
-Requester *BaseModel::makeRequester() const {
+Requester *BaseService::makeRequester() const {
 	Requester *requester = new Requester(Configurator::getHostName(),
 										 Configurator::getPort());
 
