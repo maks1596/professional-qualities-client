@@ -43,7 +43,6 @@ SOURCES += main.cpp\
     Modules/Autorization/Model/AutorizationModel.cpp \
     Entities/AutorizationData/AutorizationData.cpp \
     Modules/Autorization/View/LoginForm.cpp \
-    Modules/Tests/Model/TestsModel.cpp \
     Entities/TestWithStatus/TestWithStatus.cpp \
     Entities/TestStatus/TestStatus.cpp \
     SharedStorage/SharedStorage.cpp \
@@ -52,7 +51,9 @@ SOURCES += main.cpp\
     Modules/Registration/View/RegistrationForm.cpp \
     Modules/Registration/Model/RegistrationModel.cpp \
     Entities/RegistrationData/RegistrationData.cpp \
-    Modules/Tests/Service/TestsService.cpp
+    Modules/Tests/Service/TestsService.cpp \
+    Modules/Tests/Model/TestsModel.cpp \
+    Modules/Tests/Assembler/TestsAssembler.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -74,7 +75,6 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Autorization/Model/AutorizationModel.h \
     Entities/AutorizationData/AutorizationData.h \
     Modules/Autorization/View/LoginForm.h \
-    Modules/Tests/Model/TestsModel.h \
     Entities/TestWithStatus/TestWithStatus.h \
     Entities/TestStatus/TestStatus.h \
     SharedStorage/SharedStorage.h \
@@ -83,7 +83,10 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Registration/View/RegistrationForm.h \
     Modules/Registration/Model/RegistrationModel.h \
     Entities/RegistrationData/RegistrationData.h \
-    Modules/Tests/Service/TestsService.h
+    Modules/Tests/Service/TestsService.h \
+    Modules/Tests/Model/TestsModel.h \
+    Modules/Tests/Model/TestsColumnIndex.h \
+    Modules/Tests/Assembler/TestsAssembler.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \

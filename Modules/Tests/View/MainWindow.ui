@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QLabel" name="label">
       <property name="font">
@@ -30,14 +33,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="testsTableWidget">
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
+     <widget class="QTableView" name="testsTableView"/>
     </item>
    </layout>
   </widget>

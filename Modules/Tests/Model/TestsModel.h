@@ -1,25 +1,57 @@
 #pragma once
 
+#include <QAbstractTableModel>
 #include <QList>
 
-#include "BaseModel/BaseModel.h"
+#include "Entities/TestWithStatus/TestWithStatus.h"
 
+class QTimer;
 class Test;
-class TestWithStatus;
+class TestsService;
 
-class TestsModel : public BaseService {
-Q_OBJECT
+class TestsModel : public QAbstractTableModel {
+    Q_OBJECT
+
 public:
-	TestsModel(QObject *parent = nullptr);
+    explicit TestsModel(QObject *parent = nullptr);
 
-	void getTests(int userId) const;
-	void getTest(int testId) const;
+    // Header:
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+
+    // Basic functionality:
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+    //  :: Accessors ::
+    TestsService *getService() const;
+    void setService(TestsService *service);
+
+    const QList<TestWithStatus> &getTests() const;
+    void setTests(const QList<TestWithStatus> &tests);
+
+public slots:
+    void startUpdating();
+    void stopUpdating();
+
+    void update() const;
+
+    void getTestAsync(const QModelIndex &idx) const;
 
 signals:
-	void testsGot(const QList<TestWithStatus> &tests);
-	void testGot(const Test &test);
+    void testGot(const Test &test);
 
-private slots:
-	void jsonTestsGot(const QJsonArray &jsonTests);
-	void jsonTestGot(const QJsonObject &jsonTest);
+private:
+    void initTimer();
+
+    void resetModel(const QList<TestWithStatus> &newTests);
+    void updateModel(const QList<TestWithStatus> &tests);
+
+    void checkRowsCountChanged(const QList<TestWithStatus> &newTests);
+    void emitAllDataChanged();
+
+    QTimer *m_timer = nullptr;
+    TestsService *m_service = nullptr;
+    QList<TestWithStatus> m_tests;
 };
