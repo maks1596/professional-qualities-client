@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     Entities/BindedAnswers/BindedAnswers.cpp \
     Modules/Registration/View/RegistrationForm.cpp \
     Modules/Registration/Model/RegistrationModel.cpp \
-    Entities/RegistrationData/RegistrationData.cpp
+    Entities/RegistrationData/RegistrationData.cpp \
+    Modules/Tests/Service/TestsService.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -81,7 +82,8 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Entities/BindedAnswers/BindedAnswers.h \
     Modules/Registration/View/RegistrationForm.h \
     Modules/Registration/Model/RegistrationModel.h \
-    Entities/RegistrationData/RegistrationData.h
+    Entities/RegistrationData/RegistrationData.h \
+    Modules/Tests/Service/TestsService.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \
