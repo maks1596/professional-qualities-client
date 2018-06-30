@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	Configurator::readConfigurations();
 
     auto mainWindow = TestsAssembler::assembly();
-	LoginForm loginForm;
+    LoginForm loginForm;
 
 	QObject::connect(&loginForm, &LoginForm::loginSuccessed,
                      mainWindow, &MainWindow::show);
@@ -34,5 +34,8 @@ int main(int argc, char *argv[]) {
 
 	loginForm.show();
 
-	return a.exec();
+    auto executionResult = a.exec();
+
+    delete mainWindow;
+    return executionResult;
 }
