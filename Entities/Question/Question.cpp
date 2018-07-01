@@ -84,7 +84,7 @@ void Question::setFormulation(const QString &formulation) {
 }
 
 //  :: Answer options ::
-AnswerOptions Question::getAnswerOptions() const {
+const AnswerOptions &Question::getAnswerOptions() const {
 	return pimpl->answerOptions;
 }
 void Question::setAnswerOptions(const AnswerOptions &answerOptions) {
