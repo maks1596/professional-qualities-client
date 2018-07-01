@@ -29,3 +29,5 @@ public:
 private:
     int m_answerIndex = -1;
 };
+
+Q_DECLARE_METATYPE(QuestionWithAnswer)

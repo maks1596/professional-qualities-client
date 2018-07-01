@@ -2,8 +2,6 @@
 
 #include "Entities/Test/Test.h"
 
-Q_DECLARE_METATYPE(QuestionWithAnswer)
-
 //  :: Private functions headers ::
 
 template <typename... Args>
@@ -14,50 +12,67 @@ QList<QuestionWithAnswer> makeQuestionsWithAnswer(const Questions &questions,
 
 QuestionsModel::QuestionsModel(const Test &test, QObject *parent)
     : QAbstractListModel(parent),
+      m_testName(test.getName()),
       m_instruction(test.getInstruction())
 {
     if (test.getAnswerOptionsType() == GENERAL) {
-        setQuestionsWithAnswers(test.getQuestions(),
+        setQuestionsWithAnswer(test.getQuestions(),
                                 test.getGeneralAnswerOptions());
     } else {
-        setQuestionsWithAnswers(test.getQuestions());
+        setQuestionsWithAnswer(test.getQuestions());
     }
 }
 
 //  :: QAbstractListModel ::
 
 int QuestionsModel::rowCount(const QModelIndex &) const {
-    return getQuestionsWithAnswers().size();
+    return getQuestionsWithAnswer().size();
 }
 
 QVariant QuestionsModel::data(const QModelIndex &index, int role) const {
     if (index.isValid() && role == Qt::DisplayRole) {
         int row = index.row();
-        const auto &data = getQuestionsWithAnswers().at(row);
+        const auto &data = getQuestionsWithAnswer().at(row);
         return QVariant::fromValue(data);
     }
     return QVariant();
 }
 
 //  :: Public accessors ::
-
-const QList<QuestionWithAnswer> &QuestionsModel::getQuestionsWithAnswers() const {
-    return m_questionsWithAnswers;
+//  :: Test name ::
+QString QuestionsModel::getTestName() const {
+    return m_testName;
 }
-void QuestionsModel::setQuestionsWithAnswers(const QList<QuestionWithAnswer> &questionsWithAnswers) {
-    m_questionsWithAnswers = questionsWithAnswers;
+void QuestionsModel::setTestName(const QString &testName) {
+    m_testName = testName;
 }
 
-void QuestionsModel::setQuestionsWithAnswers(const Questions &questions) {
+//  :: Instruction ::
+QString QuestionsModel::getInstruction() const {
+    return m_instruction;
+}
+void QuestionsModel::setInstruction(const QString &instruction) {
+    m_instruction = instruction;
+}
+
+//  :: Questions with answer ::
+const QList<QuestionWithAnswer> &QuestionsModel::getQuestionsWithAnswer() const {
+    return m_questionsWithAnswer;
+}
+void QuestionsModel::setQuestionsWithAnswer(const QList<QuestionWithAnswer> &questionsWithAnswer) {
+    m_questionsWithAnswer = questionsWithAnswer;
+}
+
+void QuestionsModel::setQuestionsWithAnswer(const Questions &questions) {
     auto questionsWithAnswer = makeQuestionsWithAnswer(questions);
-    setQuestionsWithAnswers(questionsWithAnswer);
+    setQuestionsWithAnswer(questionsWithAnswer);
 }
 
-void QuestionsModel::setQuestionsWithAnswers(const Questions &questions,
+void QuestionsModel::setQuestionsWithAnswer(const Questions &questions,
                                              const AnswerOptions &generalAnswerOptions) {
     auto questionsWithAnswer = makeQuestionsWithAnswer(questions,
                                                        generalAnswerOptions);
-    setQuestionsWithAnswers(questionsWithAnswer);
+    setQuestionsWithAnswer(questionsWithAnswer);
 }
 
 //  :: Private functions ::

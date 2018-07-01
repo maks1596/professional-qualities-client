@@ -57,7 +57,9 @@ SOURCES += main.cpp\
     Modules/Testing/TestWelcomeForm/TestWelcomeForm.cpp \
     Modules/Questions/View/QuestionsForm.cpp \
     Modules/Questions/Model/QuestionsModel.cpp \
-    Entities/QuestionWithAnswer/QuestionWithAnswer.cpp
+    Entities/QuestionWithAnswer/QuestionWithAnswer.cpp \
+    Modules/Questions/View/ItemDelegate/QuestionsItemDelegate.cpp \
+    Modules/Questions/Assembler/QuestionsAssembler.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -94,7 +96,9 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Testing/TestWelcomeForm/TestWelcomeForm.h \
     Modules/Questions/View/QuestionsForm.h \
     Modules/Questions/Model/QuestionsModel.h \
-    Entities/QuestionWithAnswer/QuestionWithAnswer.h
+    Entities/QuestionWithAnswer/QuestionWithAnswer.h \
+    Modules/Questions/View/ItemDelegate/QuestionsItemDelegate.h \
+    Modules/Questions/Assembler/QuestionsAssembler.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \

@@ -13,6 +13,10 @@
 
 #include "Forms/QuestionForm/QuestionForm.h"
 #include "Forms/ResultForm/ResultForm.h"
+
+#include "Modules/Questions/Assembler/QuestionsAssembler.h"
+#include "Modules/Questions/View/QuestionsForm.h"
+
 #include "SharedStorage/SharedStorage.h"
 
 //  :: Constants ::
@@ -36,10 +40,7 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(WELCOME_PAGE);
 
     auto welcomeForm = createTestWelcomeForm(test);
-    ui->stackedWidget->addWidget(welcomeForm);
-    ui->stackedWidget->setCurrentWidget(welcomeForm);
-    welcomeForm->show();
-
+    pushWidget(welcomeForm);
 
 	connect(ui->cancelBtn, &QPushButton::clicked,
 			this, &TestForm::canceled);
@@ -94,9 +95,8 @@ void TestForm::resizeEvent(QResizeEvent *event) {
 //  :: Private slots ::
 
 void TestForm::showQuestions() {
-    initQuestions();
-	ui->stackedWidget->setCurrentIndex(QUESTIONS_PAGE);
-    updateQuestionsTestNameLabel();
+    auto questionsForm = createQuestionsForm(m_test);
+    replaceCurrentWidget(questionsForm);
 }
 
 void TestForm::onHelpBtnClicked() {
@@ -148,6 +148,15 @@ TestWelcomeForm *TestForm::createTestWelcomeForm(const Test &test) {
             this, &TestForm::showQuestions);
 
     return welcomeForm;
+}
+
+QuestionsForm *TestForm::createQuestionsForm(const Test &test) {
+    auto questionsForm = QuestionsAssembler::assembly(test, this);
+
+    connect(questionsForm, &QuestionsForm::cancelButtonClicked,
+            this, &TestForm::canceled);
+
+    return questionsForm;
 }
 
 //  :: Update test name labels ::
@@ -222,5 +231,20 @@ void TestForm::sendAnswers(const Answers &answers) {
 void TestForm::initResults(const ScaleResults &results) {
 	for(const auto &result : results) {
 		ui->results->layout()->addWidget(new ResultForm(result, this));
-	}
+    }
+}
+
+void TestForm::pushWidget(QWidget *widget) {
+    ui->stackedWidget->addWidget(widget);
+    ui->stackedWidget->setCurrentWidget(widget);
+    widget->show();
+}
+void TestForm::popCurrentWidget() {
+    auto widget = ui->stackedWidget->currentWidget();
+    ui->stackedWidget->removeWidget(widget);
+    widget->deleteLater();
+}
+void TestForm::replaceCurrentWidget(QWidget *widget) {
+    popCurrentWidget();
+    pushWidget(widget);
 }

@@ -18,14 +18,22 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     //  :: Accessors ::
-    const QList<QuestionWithAnswer> &getQuestionsWithAnswers() const;
-    void setQuestionsWithAnswers(const QList<QuestionWithAnswer> &questionsWithAnswers);
+    QString getTestName() const;
+    void setTestName(const QString &testName);
 
-    void setQuestionsWithAnswers(const Questions &questions);
-    void setQuestionsWithAnswers(const Questions &questions,
+    QString getInstruction() const;
+    void setInstruction(const QString &instruction);
+
+    const QList<QuestionWithAnswer> &getQuestionsWithAnswer() const;
+    void setQuestionsWithAnswer(const QList<QuestionWithAnswer> &questionsWithAnswer);
+    void setQuestionsWithAnswer(const Questions &questions);
+    void setQuestionsWithAnswer(const Questions &questions,
                                  const AnswerOptions &generalAnswerOptions);
 
+
+
 private:
+    QString m_testName;
     QString m_instruction;
-    QList<QuestionWithAnswer> m_questionsWithAnswers;
+    QList<QuestionWithAnswer> m_questionsWithAnswer;
 };
