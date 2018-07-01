@@ -31,73 +31,8 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="instructionPage">
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
-       <item>
-        <widget class="QLabel" name="instructionTestNameLabel">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Название</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="instrucationLbl">
-         <property name="text">
-          <string>Инструкция</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <property name="margin">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="backBtn">
-           <property name="text">
-            <string>Назад</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="startBtn">
-           <property name="text">
-            <string>К тесту</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+     <widget class="QWidget" name="welcomePage">
+      <layout class="QVBoxLayout" name="verticalLayout"/>
      </widget>
      <widget class="QWidget" name="questionsPage">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -239,8 +174,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>555</width>
-              <height>312</height>
+              <width>98</width>
+              <height>28</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5"/>

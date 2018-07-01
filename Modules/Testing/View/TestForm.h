@@ -13,6 +13,7 @@ class TestForm;
 }
 
 class TestingModel;
+class TestWelcomeForm;
 
 class TestForm : public QWidget {
 Q_OBJECT
@@ -36,6 +37,8 @@ private slots:
 	void showResults(const ScaleResults &results);
 
 private:
+    TestWelcomeForm *createTestWelcomeForm(const Test &test);
+
     void updateTestNameLabels();
     void updateQuestionsTestNameLabel();
     void updateResultsTestNameLabel();

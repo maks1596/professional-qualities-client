@@ -9,6 +9,8 @@
 #endif
 
 #include "../Model/TestingModel.h"
+#include "../TestWelcomeForm/TestWelcomeForm.h"
+
 #include "Forms/QuestionForm/QuestionForm.h"
 #include "Forms/ResultForm/ResultForm.h"
 #include "SharedStorage/SharedStorage.h"
@@ -18,7 +20,7 @@
 const int INSTRUCTION_HELP_LABEL_MARGIN = 10;
 
 enum PageIndexes {
-	INSTRUCTION_PAGE,
+    WELCOME_PAGE,
 	QUESTIONS_PAGE,
 	RESULTS_PAGE
 };
@@ -31,20 +33,20 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
 	ui(new Ui::TestForm)
 {
 	ui->setupUi(this);
-	ui->stackedWidget->setCurrentIndex(INSTRUCTION_PAGE);
+    ui->stackedWidget->setCurrentIndex(WELCOME_PAGE);
 
-    setTestName(m_test.getName());
-	ui->instrucationLbl->setText(m_test.getInstruction());
+    auto welcomeForm = createTestWelcomeForm(test);
+    ui->stackedWidget->addWidget(welcomeForm);
+    ui->stackedWidget->setCurrentWidget(welcomeForm);
+    welcomeForm->show();
 
-	connect(ui->backBtn, &QPushButton::clicked,
-			this, &TestForm::canceled);
+
 	connect(ui->cancelBtn, &QPushButton::clicked,
 			this, &TestForm::canceled);
 	connect(ui->toTestsBtn, &QPushButton::clicked,
 			this, &TestForm::canceled);
 
-	connect(ui->startBtn, &QPushButton::clicked,
-			this, &TestForm::showQuestions);
+
 	connect(ui->helpBtn, &QPushButton::clicked,
 			this, &TestForm::onHelpBtnClicked);
 	connect(ui->finishBtn, &QPushButton::clicked,
@@ -135,6 +137,19 @@ void TestForm::showResults(const ScaleResults &results) {
 }
 
 //  :: Private methods ::
+
+TestWelcomeForm *TestForm::createTestWelcomeForm(const Test &test) {
+    auto welcomeForm = new TestWelcomeForm(test.getName(),
+                                           test.getInstruction(),
+                                           this);
+    connect(welcomeForm, &TestWelcomeForm::cancelButtonClicked,
+            this, &TestForm::canceled);
+    connect(welcomeForm, &TestWelcomeForm::startTestButtonClicked,
+            this, &TestForm::showQuestions);
+
+    return welcomeForm;
+}
+
 //  :: Update test name labels ::
 void TestForm::updateTestNameLabels() {
     switch (ui->stackedWidget->currentIndex()) {
@@ -156,7 +171,6 @@ void TestForm::updateResultsTestNameLabel() {
 
 //  :: Set test name ::
 void TestForm::setTestName(const QString &testName) {
-    ui->instructionTestNameLabel->setText(testName);
     setQuestionsTestNameLabelText(testName);
     setResultsTestNameLabelText(testName);
 }
