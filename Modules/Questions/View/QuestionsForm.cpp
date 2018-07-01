@@ -2,6 +2,7 @@
 #include "ui_QuestionsForm.h"
 
 #include "../Model/QuestionsModel.h"
+#include "ElidedText/ElidedText.h"
 #include "ItemDelegate/QuestionsItemDelegate.h"
 
 //  :: Lifecycle ::
@@ -30,6 +31,20 @@ QuestionsModel *QuestionsForm::getModel() const {
 }
 void QuestionsForm::setModel(QuestionsModel *model) {
     m_model = model;
-    ui->testNameLabel->setText(model->getTestName());
     ui->questionsListView->setModel(model);
 }
+
+//  :: Protected methods ::
+
+void QuestionsForm::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+    setTestName(getModel()->getTestName());
+}
+
+//  :: Private methods ::
+
+void QuestionsForm::setTestName(const QString &testName) {
+    auto elidedTestName = elidedText(ui->testNameLabel, testName);
+    ui->testNameLabel->setText(elidedTestName);
+}
+

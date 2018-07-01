@@ -25,7 +25,12 @@ signals:
     void resultsCounted(const QList<ScaleResult> &scaleResults);
     void cancelButtonClicked();
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+
 private:
+    void setTestName(const QString &testName);
+
     QuestionsModel *m_model;
     Ui::QuestionsForm *ui;
 };
