@@ -53,7 +53,8 @@ SOURCES += main.cpp\
     Entities/RegistrationData/RegistrationData.cpp \
     Modules/Tests/Service/TestsService.cpp \
     Modules/Tests/Model/TestsModel.cpp \
-    Modules/Tests/Assembler/TestsAssembler.cpp
+    Modules/Tests/Assembler/TestsAssembler.cpp \
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -86,11 +87,13 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Tests/Service/TestsService.h \
     Modules/Tests/Model/TestsModel.h \
     Modules/Tests/Model/TestsColumnIndex.h \
-    Modules/Tests/Assembler/TestsAssembler.h
+    Modules/Tests/Assembler/TestsAssembler.h \
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \
     Forms/QuestionForm/QuestionForm.ui \
     Forms/ResultForm/ResultForm.ui \
     Modules/Autorization/View/LoginForm.ui \
-    Modules/Registration/View/RegistrationForm.ui
+    Modules/Registration/View/RegistrationForm.ui \
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.ui

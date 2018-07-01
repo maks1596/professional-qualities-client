@@ -14,10 +14,22 @@
    <string>Прохождение теста</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="instructionPage">
       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
@@ -227,8 +239,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>537</width>
-              <height>294</height>
+              <width>555</width>
+              <height>312</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5"/>
