@@ -54,7 +54,10 @@ SOURCES += main.cpp\
     Modules/Tests/Service/TestsService.cpp \
     Modules/Tests/Model/TestsModel.cpp \
     Modules/Tests/Assembler/TestsAssembler.cpp \
-    Modules/Testing/TestWelcomeForm/TestWelcomeForm.cpp
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.cpp \
+    Modules/Questions/View/QuestionsForm.cpp \
+    Modules/Questions/Model/QuestionsModel.cpp \
+    Entities/QuestionWithAnswer/QuestionWithAnswer.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -88,7 +91,10 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Tests/Model/TestsModel.h \
     Modules/Tests/Model/TestsColumnIndex.h \
     Modules/Tests/Assembler/TestsAssembler.h \
-    Modules/Testing/TestWelcomeForm/TestWelcomeForm.h
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.h \
+    Modules/Questions/View/QuestionsForm.h \
+    Modules/Questions/Model/QuestionsModel.h \
+    Entities/QuestionWithAnswer/QuestionWithAnswer.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \
@@ -96,4 +102,5 @@ FORMS    += Modules/Tests/View/MainWindow.ui \
     Forms/ResultForm/ResultForm.ui \
     Modules/Autorization/View/LoginForm.ui \
     Modules/Registration/View/RegistrationForm.ui \
-    Modules/Testing/TestWelcomeForm/TestWelcomeForm.ui
+    Modules/Testing/TestWelcomeForm/TestWelcomeForm.ui \
+    Modules/Questions/View/QuestionsForm.ui
