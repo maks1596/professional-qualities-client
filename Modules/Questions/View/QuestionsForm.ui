@@ -47,8 +47,14 @@
    </item>
    <item>
     <widget class="QListView" name="questionsListView">
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
      </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::NoSelection</enum>
