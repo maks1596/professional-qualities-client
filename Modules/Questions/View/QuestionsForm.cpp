@@ -1,9 +1,14 @@
 #include "QuestionsForm.h"
 #include "ui_QuestionsForm.h"
 
+#include <QtQml/QQmlContext>
+
 #include "../Model/QuestionsModel.h"
 #include "ElidedText/ElidedText.h"
-#include "ItemDelegate/QuestionsItemDelegate.h"
+
+//  :: Constants ::
+
+const QString kModelPropertyName = "questionsModel";
 
 //  :: Lifecycle ::
 
@@ -12,9 +17,6 @@ QuestionsForm::QuestionsForm(QWidget *parent) :
     ui(new Ui::QuestionsForm)
 {
     ui->setupUi(this);
-
-    auto itemDelegate = new QuestionsItemDelegate(ui->questionsListView);
-    ui->questionsListView->setItemDelegate(itemDelegate);
 
     connect(ui->cancelButton, &QPushButton::clicked,
             this, &QuestionsForm::cancelButtonClicked);
@@ -31,7 +33,9 @@ QuestionsModel *QuestionsForm::getModel() const {
 }
 void QuestionsForm::setModel(QuestionsModel *model) {
     m_model = model;
-    ui->questionsListView->setModel(model);
+    auto qmlContext = ui->questionsListQuickWidget->rootContext();
+    qmlContext->setContextProperty(kModelPropertyName, m_model);
+    qmlContext->setContextProperty("welcomeMessage", "Привет, Мир!");
 }
 
 //  :: Protected methods ::

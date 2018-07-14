@@ -1,6 +1,20 @@
 #include "QuestionsModel.h"
 
+#include <QStringListModel>
+
 #include "Entities/Test/Test.h"
+
+//  :: Constants ::
+
+enum QuestionsModelRoles {
+    QuestionFormulationRole = Qt::UserRole + 1,
+    AnswerIndexRole,
+    AnswersRole
+};
+
+const QString QUESTION_FORMULATION_ROLE_NAME = "questionFormulation";
+const QString ANSWER_INDEX_ROLE_NAME = "answerIndex";
+const QString ANSWERS_ROLE_NAME = "answers";
 
 //  :: Private functions headers ::
 
@@ -30,12 +44,64 @@ int QuestionsModel::rowCount(const QModelIndex &) const {
 }
 
 QVariant QuestionsModel::data(const QModelIndex &index, int role) const {
-    if (index.isValid() && role == Qt::DisplayRole) {
-        int row = index.row();
+    if (!index.isValid()) {
+        return QVariant();
+    }
+    int row = index.row();
+
+    switch (role) {
+    case Qt::DisplayRole: {
         const auto &data = getQuestionsWithAnswer().at(row);
         return QVariant::fromValue(data);
+    } break;
+
+    case QuestionFormulationRole: {
+        return getQuestionsWithAnswer().at(row).getFormulation();
+    } break;
+
+    case AnswerIndexRole: {
+        return getQuestionsWithAnswer().at(row).getAnswerIndex();
+    } break;
+
+    case AnswersRole: {
+        auto questionWithAnswers = getQuestionsWithAnswer().at(row);
+        auto answerOptionsFormulations = questionWithAnswers.getAnswerOptionsFormulations();
+        auto model = new QStringListModel(answerOptionsFormulations);
+        return QVariant::fromValue(model);
+    } break;
     }
+
     return QVariant();
+}
+
+QHash<int, QByteArray> QuestionsModel::roleNames() const {
+    auto roles = QAbstractListModel::roleNames();
+
+    roles[QuestionFormulationRole] = QUESTION_FORMULATION_ROLE_NAME.toLocal8Bit();
+    roles[AnswerIndexRole] = ANSWER_INDEX_ROLE_NAME.toLocal8Bit();
+    roles[AnswersRole] = ANSWERS_ROLE_NAME.toLocal8Bit();
+
+    return roles;
+}
+
+Qt::ItemFlags QuestionsModel::flags(const QModelIndex &index) const {
+    if  (!index.isValid()) {
+        return Qt::ItemIsEnabled;
+    }
+    return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
+}
+
+bool QuestionsModel::setData(const QModelIndex &index, const QVariant &value, int role) {
+    if (!index.isValid()) {
+        return false;
+    }
+
+    if (role == AnswerIndexRole) {
+        m_questionsWithAnswer[index.row()].setAnswerIndex(value.toInt());
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+    return false;
 }
 
 //  :: Public accessors ::

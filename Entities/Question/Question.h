@@ -39,6 +39,7 @@ public:
 	void setFormulation(const QString &formulation);
 
     const AnswerOptions &getAnswerOptions() const;
+    QStringList getAnswerOptionsFormulations() const;
 	void setAnswerOptions(const AnswerOptions &answerOptions);
 
 	//  :: Serializable ::

@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT	 += sql
-QT       += network
+QT += core gui
+QT += quick qml quickwidgets
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -110,3 +110,6 @@ FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Registration/View/RegistrationForm.ui \
     Modules/Testing/TestWelcomeForm/TestWelcomeForm.ui \
     Modules/Questions/View/QuestionsForm.ui
+
+DISTFILES += \
+    Modules/Questions/View/QuestionsListView.qml

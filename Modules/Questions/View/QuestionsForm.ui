@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
      <item>
@@ -46,21 +46,14 @@
     </layout>
    </item>
    <item>
-    <widget class="QListView" name="questionsListView">
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
+    <widget class="QQuickWidget" name="questionsListQuickWidget">
+     <property name="resizeMode">
+      <enum>QQuickWidget::SizeRootObjectToView</enum>
      </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="showDropIndicator" stdset="0">
-      <bool>false</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::NoSelection</enum>
-     </property>
-     <property name="modelColumn">
-      <number>0</number>
+     <property name="source">
+      <url>
+       <string>file:///U:/Projects/QtProjects/ProfessionalQualities/User/ProfessionalQualitiesUser/Modules/Questions/View/QuestionsListView.qml</string>
+      </url>
      </property>
     </widget>
    </item>
@@ -97,6 +90,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QQuickWidget</class>
+   <extends>QWidget</extends>
+   <header>QtQuickWidgets/QQuickWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

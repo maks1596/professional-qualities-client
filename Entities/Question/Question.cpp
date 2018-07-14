@@ -85,7 +85,14 @@ void Question::setFormulation(const QString &formulation) {
 
 //  :: Answer options ::
 const AnswerOptions &Question::getAnswerOptions() const {
-	return pimpl->answerOptions;
+    return pimpl->answerOptions;
+}
+QStringList Question::getAnswerOptionsFormulations() const {
+    QStringList formulations;
+    for (const auto &answerOption : getAnswerOptions()) {
+        formulations << answerOption.getFormulation();
+    }
+    return formulations;
 }
 void Question::setAnswerOptions(const AnswerOptions &answerOptions) {
 	pimpl->answerOptions = answerOptions;

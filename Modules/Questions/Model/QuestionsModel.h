@@ -16,6 +16,10 @@ public:
     //  :: QAbstractListModel ::
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QHash<int, QByteArray> roleNames() const override;
+
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
     //  :: Accessors ::
     QString getTestName() const;
@@ -28,7 +32,7 @@ public:
     void setQuestionsWithAnswer(const QList<QuestionWithAnswer> &questionsWithAnswer);
     void setQuestionsWithAnswer(const Questions &questions);
     void setQuestionsWithAnswer(const Questions &questions,
-                                 const AnswerOptions &generalAnswerOptions);
+                                const AnswerOptions &generalAnswerOptions);
 
 
 
