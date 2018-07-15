@@ -1,8 +1,11 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 
 ListView {
     spacing: 10
     bottomMargin: 10
+
+    ScrollBar.vertical: ScrollBar{}
 
     model: questionsModel // This is available in all editors.
     delegate: Column {
@@ -43,5 +46,5 @@ ListView {
                 }
             }
         }
-    }
+    } 
 }
