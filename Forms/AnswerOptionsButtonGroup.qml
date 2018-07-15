@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 
 Item {
     property string name: "AnswerOptionsButtonGroup"
-    property var answersModel
+    property var questionModel
     property int answerIndex
 
     height: answerOptionsFlow.height
@@ -14,7 +14,7 @@ Item {
         width: parent.width
 
         Repeater {
-            model: answersModel
+            model: questionModel.answers
             delegate: AnswerOptionRadioButton {
                 id: answerOptionRadioButton
 
@@ -22,7 +22,7 @@ Item {
                 font.pointSize: 10
 
                 checked: answerIndex === model.index
-                onClicked: model.answerIndex = model.index
+                onClicked: questionModel.answerIndex = model.index
             }
         }
     }

@@ -29,7 +29,7 @@ Rectangle {
         }
 
         AnswerOptionsButtonGroup {
-            answersModel: model.answers
+            questionModel: model
             answerIndex: model.answerIndex
             width: parent.width
         }
