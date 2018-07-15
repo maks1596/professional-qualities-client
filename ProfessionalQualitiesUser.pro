@@ -112,4 +112,7 @@ FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Questions/View/QuestionsForm.ui
 
 DISTFILES += \
-    Modules/Questions/View/QuestionsListView.qml
+    Modules/Questions/View/QuestionsListView.qml \
+    Forms/AnswerOptionRadioButton.qml \
+    Forms/AnswerOptionsButtonGroup.qml \
+    Forms/QuestionView.qml

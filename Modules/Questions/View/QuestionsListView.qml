@@ -1,50 +1,25 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 2.0
 
-ListView {
-    spacing: 10
-    bottomMargin: 10
+import "../../../Forms"
 
-    ScrollBar.vertical: ScrollBar{}
+Rectangle {
+    id: backgroundRectangle
 
-    model: questionsModel // This is available in all editors.
-    delegate: Column {
-        id: contentColumn
+    SystemPalette { id: palette; colorGroup: SystemPalette.Active }
+    color: palette.window
 
-        width: parent.width
-        height: questionFormulationText.height + answerOptionsFlow.height
-        spacing: 10
+    ListView {
+        spacing: 20
 
-        Text {
-            id: questionFormulationText
+        anchors.fill: parent
 
-            width: parent.width
-            font.pointSize: 10
-            renderType: Text.NativeRendering
-            wrapMode: Text.WordWrap
-
+        model: questionsModel // This is available in all editors.
+        delegate: QuestionView {
             text: model.questionFormulation
+            width: parent.width
         }
 
-        Flow {
-            id: answerOptionsFlow
-
-            spacing: 10
-            property var answersModel: model.answers
-
-            Repeater {
-                model: answerOptionsFlow.answersModel
-                delegate: Text {
-                    renderType: Text.NativeRendering
-                    text: model.display
-                    wrapMode: Text.WordWrap
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: model.answerIndex = model.index;
-                    }
-                }
-            }
-        }
-    } 
+        ScrollBar.vertical: ScrollBar{}
+    }
 }
