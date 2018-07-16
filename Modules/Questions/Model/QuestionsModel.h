@@ -4,6 +4,7 @@
 
 #include "Entities/QuestionWithAnswer/QuestionWithAnswer.h"
 
+class Answer;
 class Test;
 
 class QuestionsModel : public QAbstractListModel {
@@ -34,7 +35,8 @@ public:
     void setQuestionsWithAnswer(const Questions &questions,
                                 const AnswerOptions &generalAnswerOptions);
 
-
+    bool areAllQuestionsHaveAnswers() const;
+    QList<Answer> getAnswers() const;
 
 private:
     QString m_testName;

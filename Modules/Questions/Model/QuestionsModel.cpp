@@ -2,6 +2,7 @@
 
 #include <QStringListModel>
 
+#include "Entities/Answer/Answer.h"
 #include "Entities/Test/Test.h"
 
 //  :: Constants ::
@@ -139,6 +140,29 @@ void QuestionsModel::setQuestionsWithAnswer(const Questions &questions,
     auto questionsWithAnswer = makeQuestionsWithAnswer(questions,
                                                        generalAnswerOptions);
     setQuestionsWithAnswer(questionsWithAnswer);
+}
+
+//  :: Public methods ::
+
+bool QuestionsModel::areAllQuestionsHaveAnswers() const {
+    for (const auto &questionWithAnswer : getQuestionsWithAnswer()) {
+        if (!questionWithAnswer.hasAnswer()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+QList<Answer> QuestionsModel::getAnswers() const {
+    QList<Answer> answers;
+    answers.reserve(rowCount());
+
+    for (const auto &questionWithAnswer : getQuestionsWithAnswer()) {
+        answers.append(Answer(questionWithAnswer.getId(),
+                              questionWithAnswer.getAnswer().getId()));
+    }
+
+    return answers;
 }
 
 //  :: Private functions ::

@@ -20,13 +20,20 @@ public:
     QuestionsModel *getModel() const;
     void setModel(QuestionsModel *model);
 
+public slots:
+    void showNotAllQuestionsHaveAnswersMessage();
+    void showMessage(const QString &message);
+
 signals:
-    void testingFinished(const QList<Answer> &answers);
+    void finishTestButtonClicked();
     void resultsCounted(const QList<ScaleResult> &scaleResults);
     void cancelButtonClicked();
 
 protected:
     void resizeEvent(QResizeEvent *event);
+
+private slots:
+    void onFinishTestButtonClicked();
 
 private:
     void setTestName(const QString &testName);

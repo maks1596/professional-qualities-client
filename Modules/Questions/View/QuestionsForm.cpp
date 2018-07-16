@@ -1,6 +1,7 @@
 #include "QuestionsForm.h"
 #include "ui_QuestionsForm.h"
 
+#include <QMessageBox>
 #include <QtQml/QQmlContext>
 
 #include "../Model/QuestionsModel.h"
@@ -8,7 +9,9 @@
 
 //  :: Constants ::
 
-const QString kModelPropertyName = "questionsModel";
+const QString MODEL_PROPERTY_NAME = "questionsModel";
+const QString MESSAGE_TITLE = "Информация";
+const QString NOT_ALL_QUESTIONS_HAVE_ANSWERS_MESSAGE = "Не на все вопросы дан ответ";
 
 //  :: Lifecycle ::
 
@@ -20,6 +23,8 @@ QuestionsForm::QuestionsForm(QWidget *parent) :
 
     connect(ui->cancelButton, &QPushButton::clicked,
             this, &QuestionsForm::cancelButtonClicked);
+    connect(ui->finishTestButton, &QPushButton::clicked,
+            this, &QuestionsForm::finishTestButtonClicked);
 }
 
 QuestionsForm::~QuestionsForm() {
@@ -34,8 +39,18 @@ QuestionsModel *QuestionsForm::getModel() const {
 void QuestionsForm::setModel(QuestionsModel *model) {
     m_model = model;
     auto qmlContext = ui->questionsListQuickWidget->rootContext();
-    qmlContext->setContextProperty(kModelPropertyName, m_model);
+    qmlContext->setContextProperty(MODEL_PROPERTY_NAME, m_model);
     qmlContext->setContextProperty("welcomeMessage", "Привет, Мир!");
+}
+
+//  :: Public slots ::
+
+void QuestionsForm::showNotAllQuestionsHaveAnswersMessage() {
+    showMessage(NOT_ALL_QUESTIONS_HAVE_ANSWERS_MESSAGE);
+}
+
+void QuestionsForm::showMessage(const QString &message) {
+    QMessageBox::information(this, MESSAGE_TITLE, message);
 }
 
 //  :: Protected methods ::
@@ -43,6 +58,12 @@ void QuestionsForm::setModel(QuestionsModel *model) {
 void QuestionsForm::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
     setTestName(getModel()->getTestName());
+}
+
+//  :: Private slots ::
+
+void QuestionsForm::onFinishTestButtonClicked() {
+
 }
 
 //  :: Private methods ::

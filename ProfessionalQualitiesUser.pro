@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     Modules/Questions/Model/QuestionsModel.cpp \
     Entities/QuestionWithAnswer/QuestionWithAnswer.cpp \
     Modules/Questions/Assembler/QuestionsAssembler.cpp \
-    ElidedText/ElidedText.cpp
+    ElidedText/ElidedText.cpp \
+    Modules/Questions/Controller/QuestionsController.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -96,7 +97,8 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Questions/Model/QuestionsModel.h \
     Entities/QuestionWithAnswer/QuestionWithAnswer.h \
     Modules/Questions/Assembler/QuestionsAssembler.h \
-    ElidedText/ElidedText.h
+    ElidedText/ElidedText.h \
+    Modules/Questions/Controller/QuestionsController.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \

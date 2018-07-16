@@ -9,9 +9,10 @@
 class QuestionWithAnswer : public Question {
 public:
 
+
     //  :: Lifecycle ::
     //  :: Constructors ::
-    QuestionWithAnswer() = default;
+    QuestionWithAnswer();
     QuestionWithAnswer(const Question &question);
     QuestionWithAnswer(const Question &question,
                        const AnswerOptions &answerOptions);
@@ -21,13 +22,19 @@ public:
     void setAnswerIndex(int answerIndex);
 
     /**
+     * @brief Метод информирует дан ли ответ на вопрос
+     * @return есть ли ответ
+     */
+    bool hasAnswer() const;
+
+    /**
      * @brief Метод возвращает данный на вопрос ответ
      * @return сущность ответа
      */
     const AnswerOption &getAnswer() const;
 
 private:
-    int m_answerIndex = -1;
+    int m_answerIndex;
 };
 
 Q_DECLARE_METATYPE(QuestionWithAnswer)

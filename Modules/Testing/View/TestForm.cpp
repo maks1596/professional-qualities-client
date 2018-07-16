@@ -103,7 +103,7 @@ void TestForm::onHelpBtnClicked() {
 	help->setWindowTitle("Инструкция");
 	help->setText(m_test.getInstruction());
 	help->setWordWrap(true);
-	help->setMargin(10);
+    help->setMargin(INSTRUCTION_HELP_LABEL_MARGIN);
 
 	connect(this, &TestForm::destroyed,
 			help, &QLabel::deleteLater);
@@ -111,22 +111,7 @@ void TestForm::onHelpBtnClicked() {
 }
 
 void TestForm::onFinishTestBtnClicked() {
-	auto questionsLayout = ui->questions->layout();
-	Answers answers;
-	for (int i = 0; i < questionsLayout->count(); i++) {
-		QuestionForm *questionForm = (QuestionForm *)questionsLayout->itemAt(i)->widget();
-		Answer answer{questionForm->getQuestionID(), questionForm->getAnswerID()};
-		if (answer.getAnswerOptionId()) {
-			answers.append(answer);
-		} else {
-			QMessageBox::information(this, "Не закончен",
-									 "Вы ответили не на все вопросы\n" +
-									 QString("(Вопрос №%1)").arg(i + 1));
-			questionForm->setFocus();
-			return;
-		}
-	}
-	sendAnswers(answers);
+
 }
 
 void TestForm::showResults(const ScaleResults &results) {
@@ -208,17 +193,7 @@ void TestForm::initModel() {
 }
 
 void TestForm::initQuestions() {
-	uint counter = 1;
-	for(const Question &question : m_test.getQuestions()) {
-		QuestionForm *questionForm;
-		if(m_test.getAnswerOptionsType() == UNIQUE) {
-			questionForm = new QuestionForm(question, this);
-		} else {
-			questionForm = new QuestionForm(question, m_test.getGeneralAnswerOptions(), this);
-		}
-		questionForm->setNumber(counter++);
-		ui->questions->layout()->addWidget(questionForm);
-	}
+
 }
 
 void TestForm::sendAnswers(const Answers &answers) {

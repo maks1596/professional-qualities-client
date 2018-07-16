@@ -1,13 +1,24 @@
 #include "QuestionWithAnswer.h"
 
+//  :: Constatns ::
+
+const int DEFAULT_ANSWER_INDEX = -1;
+
 //  :: Lifecycle ::
 
+QuestionWithAnswer::QuestionWithAnswer()
+    : m_answerIndex(DEFAULT_ANSWER_INDEX){
+
+}
+
 QuestionWithAnswer::QuestionWithAnswer(const Question &question)
-    : Question(question) { }
+    : Question(question),
+      m_answerIndex(DEFAULT_ANSWER_INDEX)
+{ }
 
 QuestionWithAnswer::QuestionWithAnswer(const Question &question,
                                        const AnswerOptions &answerOptions)
-    : Question(question)
+    : QuestionWithAnswer(question)
 {
     setAnswerOptions(answerOptions);
 }
@@ -22,6 +33,10 @@ void QuestionWithAnswer::setAnswerIndex(int answerIndex) {
 }
 
 //  :: Public methods ::
+
+bool QuestionWithAnswer::hasAnswer() const {
+    return m_answerIndex != DEFAULT_ANSWER_INDEX;
+}
 
 const AnswerOption &QuestionWithAnswer::getAnswer() const {
     return getAnswerOptions().at(getAnswerIndex());
