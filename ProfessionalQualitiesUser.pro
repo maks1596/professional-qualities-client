@@ -32,7 +32,6 @@ SOURCES += main.cpp\
     Entities/AnswerOption/AnswerOption.cpp \
     Entities/Question/Question.cpp \
     Modules/Testing/View/TestForm.cpp \
-    Forms/QuestionForm/QuestionForm.cpp \
     Forms/ResultForm/ResultForm.cpp \
     BaseModel/BaseModel.cpp \
     Requester/Requester.cpp \
@@ -58,7 +57,6 @@ SOURCES += main.cpp\
     Modules/Questions/View/QuestionsForm.cpp \
     Modules/Questions/Model/QuestionsModel.cpp \
     Entities/QuestionWithAnswer/QuestionWithAnswer.cpp \
-    Modules/Questions/View/ItemDelegate/QuestionsItemDelegate.cpp \
     Modules/Questions/Assembler/QuestionsAssembler.cpp \
     ElidedText/ElidedText.cpp
 
@@ -69,7 +67,6 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Entities/Question/Question.h \
     Exception.h \
     Modules/Testing/View/TestForm.h \
-    Forms/QuestionForm/QuestionForm.h \
     Entities/Answer/Answer.h \
     Forms/ResultForm/ResultForm.h \
     BaseModel/BaseModel.h \
@@ -98,13 +95,11 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Questions/View/QuestionsForm.h \
     Modules/Questions/Model/QuestionsModel.h \
     Entities/QuestionWithAnswer/QuestionWithAnswer.h \
-    Modules/Questions/View/ItemDelegate/QuestionsItemDelegate.h \
     Modules/Questions/Assembler/QuestionsAssembler.h \
     ElidedText/ElidedText.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \
-    Forms/QuestionForm/QuestionForm.ui \
     Forms/ResultForm/ResultForm.ui \
     Modules/Autorization/View/LoginForm.ui \
     Modules/Registration/View/RegistrationForm.ui \

@@ -11,7 +11,6 @@
 #include "../Model/TestingModel.h"
 #include "../TestWelcomeForm/TestWelcomeForm.h"
 
-#include "Forms/QuestionForm/QuestionForm.h"
 #include "Forms/ResultForm/ResultForm.h"
 
 #include "Modules/Questions/Assembler/QuestionsAssembler.h"
