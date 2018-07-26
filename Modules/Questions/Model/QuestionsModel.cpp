@@ -27,6 +27,7 @@ QList<QuestionWithAnswer> makeQuestionsWithAnswer(const Questions &questions,
 
 QuestionsModel::QuestionsModel(const Test &test, QObject *parent)
     : QAbstractListModel(parent),
+      m_testId(),
       m_testName(test.getName()),
       m_instruction(test.getInstruction())
 {
@@ -106,6 +107,14 @@ bool QuestionsModel::setData(const QModelIndex &index, const QVariant &value, in
 }
 
 //  :: Public accessors ::
+//  :: Test ID ::
+int QuestionsModel::getTestId() const {
+    return m_testId;
+}
+void QuestionsModel::setTestId(int testId) {
+    m_testId = testId;
+}
+
 //  :: Test name ::
 QString QuestionsModel::getTestName() const {
     return m_testName;

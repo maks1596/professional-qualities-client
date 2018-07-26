@@ -23,6 +23,10 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
     //  :: Accessors ::
+
+    int getTestId() const;
+    void setTestId(int testId);
+
     QString getTestName() const;
     void setTestName(const QString &testName);
 
@@ -38,7 +42,9 @@ public:
     bool areAllQuestionsHaveAnswers() const;
     QList<Answer> getAnswers() const;
 
+
 private:
+    int m_testId;
     QString m_testName;
     QString m_instruction;
     QList<QuestionWithAnswer> m_questionsWithAnswer;

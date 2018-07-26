@@ -14,7 +14,7 @@ class QuestionsForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit QuestionsForm(QWidget *parent = 0);
+    explicit QuestionsForm(QWidget *parent = nullptr);
     ~QuestionsForm();
 
     QuestionsModel *getModel() const;
@@ -31,9 +31,6 @@ signals:
 
 protected:
     void resizeEvent(QResizeEvent *event);
-
-private slots:
-    void onFinishTestButtonClicked();
 
 private:
     void setTestName(const QString &testName);

@@ -1,8 +1,10 @@
 #include "QuestionsController.h"
 
-#include "../View/QuestionsForm.h"
 #include "../Model/QuestionsModel.h"
+#include "../Service/QuestionsService.h"
+#include "../View/QuestionsForm.h"
 #include "Entities/Answer/Answer.h"
+#include "SharedStorage/SharedStorage.h"
 
 //  :: Lifecycle ::
 
@@ -19,6 +21,8 @@ void QuestionsController::setView(QuestionsForm *view) {
 
     connect(m_view, &QuestionsForm::finishTestButtonClicked,
             this, &QuestionsController::countResultsAsync);
+    connect(this, &QuestionsController::resultsCounted,
+            m_view, &QuestionsForm::resultsCounted);
 }
 
 //  :: Model ::
@@ -35,13 +39,18 @@ QuestionsService *QuestionsController::getService() const {
 }
 void QuestionsController::setService(QuestionsService *service) {
     m_service = service;
+
+    connect(m_service, &QuestionsService::resultsCounted,
+            this, &QuestionsController::resultsCounted);
 }
 
 //  :: Public slots ::
 
 void QuestionsController::countResultsAsync() const {
     if (getModel()->areAllQuestionsHaveAnswers()) {
-        auto answers = getModel()->getAnswers();
+        getService()->countResults(SharedStorage::getUserId(),
+                                   getModel()->getTestId(),
+                                   getModel()->getAnswers());
     } else {
         getView()->showNotAllQuestionsHaveAnswersMessage();
     }

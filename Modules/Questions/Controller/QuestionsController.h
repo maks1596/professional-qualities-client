@@ -6,6 +6,8 @@ class QuestionsForm;
 class QuestionsModel;
 class QuestionsService;
 
+class ScaleResult;
+
 class QuestionsController : public QObject {
     Q_OBJECT
 
@@ -24,6 +26,9 @@ public:
 
 public slots:
     void countResultsAsync() const;
+
+signals:
+    void resultsCounted(const QList<ScaleResult> &results);
 
 private:
     QuestionsForm *m_view;

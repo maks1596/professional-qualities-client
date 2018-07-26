@@ -40,7 +40,6 @@ void QuestionsForm::setModel(QuestionsModel *model) {
     m_model = model;
     auto qmlContext = ui->questionsListQuickWidget->rootContext();
     qmlContext->setContextProperty(MODEL_PROPERTY_NAME, m_model);
-    qmlContext->setContextProperty("welcomeMessage", "Привет, Мир!");
 }
 
 //  :: Public slots ::
@@ -58,12 +57,6 @@ void QuestionsForm::showMessage(const QString &message) {
 void QuestionsForm::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
     setTestName(getModel()->getTestName());
-}
-
-//  :: Private slots ::
-
-void QuestionsForm::onFinishTestButtonClicked() {
-
 }
 
 //  :: Private methods ::
