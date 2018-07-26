@@ -21,7 +21,7 @@ public:
 	Test &operator=(Test &&other);
 
 	//  :: Destructor ::
-	~Test();
+    ~Test() override;
 
 	//  :: Accessors ::
 
