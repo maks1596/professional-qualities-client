@@ -9,7 +9,7 @@
 //  :: Lifecycle ::
 
 QuestionsController::QuestionsController(QObject *parent)
-    : QObject(parent) { }
+    : IQuestionsOutput(parent) { }
 
 //  :: Public accessors ::
 //  :: View ::
@@ -21,8 +21,6 @@ void QuestionsController::setView(QuestionsForm *view) {
 
     connect(m_view, &QuestionsForm::finishTestButtonClicked,
             this, &QuestionsController::countResultsAsync);
-    connect(this, &QuestionsController::resultsCounted,
-            m_view, &QuestionsForm::resultsCounted);
 }
 
 //  :: Model ::
@@ -55,4 +53,3 @@ void QuestionsController::countResultsAsync() const {
         getView()->showNotAllQuestionsHaveAnswersMessage();
     }
 }
-

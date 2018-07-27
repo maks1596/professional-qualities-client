@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include "../IQuestionsOutput.h"
 
 class QuestionsForm;
 class QuestionsModel;
@@ -8,7 +9,7 @@ class QuestionsService;
 
 class ScaleResult;
 
-class QuestionsController : public QObject {
+class QuestionsController : public IQuestionsOutput {
     Q_OBJECT
 
 public:
@@ -26,9 +27,6 @@ public:
 
 public slots:
     void countResultsAsync() const;
-
-signals:
-    void resultsCounted(const QList<ScaleResult> &results);
 
 private:
     QuestionsForm *m_view;

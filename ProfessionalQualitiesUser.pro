@@ -100,7 +100,8 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Questions/Assembler/QuestionsAssembler.h \
     ElidedText/ElidedText.h \
     Modules/Questions/Controller/QuestionsController.h \
-    Modules/Questions/Service/QuestionsService.h
+    Modules/Questions/Service/QuestionsService.h \
+    Modules/Questions/IQuestionsOutput.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \

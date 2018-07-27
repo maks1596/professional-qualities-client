@@ -5,8 +5,10 @@
 #include "../Service/QuestionsService.h"
 #include "../View/QuestionsForm.h"
 
-QuestionsForm *QuestionsAssembler::assembly(const Test &test,
-                                            QWidget *parent)
+std::tuple<QuestionsForm *,
+           IQuestionsOutput *>
+QuestionsAssembler::assembly(const Test &test,
+                             QWidget *parent)
 {
     auto view = new QuestionsForm(parent);
     auto model = new QuestionsModel(test, view);
@@ -19,5 +21,5 @@ QuestionsForm *QuestionsAssembler::assembly(const Test &test,
     controller->setModel(model);
     controller->setService(service);
 
-    return view;
+    return std::make_tuple(view, controller);
 }

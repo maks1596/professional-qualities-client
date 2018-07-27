@@ -14,6 +14,7 @@
 #include "Forms/ResultForm/ResultForm.h"
 
 #include "Modules/Questions/Assembler/QuestionsAssembler.h"
+#include "Modules/Questions/IQuestionsOutput.h"
 #include "Modules/Questions/View/QuestionsForm.h"
 
 #include "SharedStorage/SharedStorage.h"
@@ -135,12 +136,16 @@ TestWelcomeForm *TestForm::createTestWelcomeForm(const Test &test) {
 }
 
 QuestionsForm *TestForm::createQuestionsForm(const Test &test) {
-    auto questionsForm = QuestionsAssembler::assembly(test, this);
+    QuestionsForm *view;
+    IQuestionsOutput *output;
+    std::tie(view, output) = QuestionsAssembler::assembly(test, this);
 
-    connect(questionsForm, &QuestionsForm::cancelButtonClicked,
+    connect(view, &QuestionsForm::cancelButtonClicked,
             this, &TestForm::canceled);
+    connect(output, &IQuestionsOutput::resultsCounted,
+            this, &TestForm::showResults);
 
-    return questionsForm;
+    return view;
 }
 
 //  :: Update test name labels ::
