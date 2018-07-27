@@ -183,14 +183,14 @@ QList<Answer> QuestionsModel::getAnswers() const {
 #ifdef QT_DEBUG
 void QuestionsModel::setRandomAnswers() {
     qsrand(QTime::currentTime().msecsSinceStartOfDay());
+    auto questionsCount = rowCount();
 
-    beginResetModel();
-    for (auto &questionWithAnswer : getQuestionsWithAnswer()) {
+    for (int questionIndex = 0; questionIndex < questionsCount; ++questionIndex) {
+        const auto &questionWithAnswer = getQuestionsWithAnswer().at(questionIndex);
         auto answerOptionsCount = questionWithAnswer.getAnswerOptions().size();
         auto answerIndex = qrand() % answerOptionsCount;
-        questionWithAnswer.setAnswerIndex(answerIndex);
+        setData(index(questionIndex), answerIndex, AnswerIndexRole);
     }
-    endResetModel();
 }
 #endif
 
