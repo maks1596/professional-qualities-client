@@ -60,7 +60,8 @@ SOURCES += main.cpp\
     ElidedText/ElidedText.cpp \
     Modules/Questions/Controller/QuestionsController.cpp \
     Modules/Questions/Service/QuestionsService.cpp \
-    Forms/InstructionLabel/InstructionLabel.cpp
+    Forms/InstructionLabel/InstructionLabel.cpp \
+    Forms/ResultsForm/ResultsForm.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -101,15 +102,16 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Modules/Questions/Controller/QuestionsController.h \
     Modules/Questions/Service/QuestionsService.h \
     Modules/Questions/IQuestionsOutput.h \
-    Forms/InstructionLabel/InstructionLabel.h
+    Forms/InstructionLabel/InstructionLabel.h \
+    Forms/ResultsForm/ResultsForm.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
-    Modules/Testing/View/TestForm.ui \
     Forms/ResultForm/ResultForm.ui \
     Modules/Autorization/View/LoginForm.ui \
     Modules/Registration/View/RegistrationForm.ui \
     Modules/Testing/TestWelcomeForm/TestWelcomeForm.ui \
-    Modules/Questions/View/QuestionsForm.ui
+    Modules/Questions/View/QuestionsForm.ui \
+    Forms/ResultsForm/ResultsForm.ui
 
 DISTFILES += \
     Modules/Questions/View/QuestionsListView.qml \

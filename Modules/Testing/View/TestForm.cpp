@@ -1,59 +1,38 @@
 #include "TestForm.h"
-#include "ui_TestForm.h"
 
-#include <QLabel>
-#include <QMessageBox>
+#include <QVBoxLayout>
 
 #include "../TestWelcomeForm/TestWelcomeForm.h"
 
-#include "ElidedText/ElidedText.h"
-
 #include "Forms/InstructionLabel/InstructionLabel.h"
-#include "Forms/ResultForm/ResultForm.h"
+#include "Forms/ResultsForm/ResultsForm.h"
 
 #include "Modules/Questions/Assembler/QuestionsAssembler.h"
 #include "Modules/Questions/IQuestionsOutput.h"
 
-#include "SharedStorage/SharedStorage.h"
-
 //  :: Constants ::
 
-enum PageIndexes {
-    WELCOME_PAGE,
-	QUESTIONS_PAGE,
-	RESULTS_PAGE
-};
+const int BASE_WIDTH = 400;
+const int BASE_HEIGHT = 300;
+
+const QString WINDOW_TITLE = "Прохождение теста";
 
 //  :: Lifecycle ::
-//  :: Constructor ::
+
 TestForm::TestForm(const Test &test, QWidget *parent) :
 	QWidget(parent),
-	m_test(test),
-	ui(new Ui::TestForm)
+    m_test(test)
 {
-	ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(WELCOME_PAGE);
+    setLayout(new QVBoxLayout(this));
+    layout()->setMargin(0);
+    resize(BASE_WIDTH, BASE_HEIGHT);
+    setWindowTitle(WINDOW_TITLE);
 
     auto welcomeForm = createTestWelcomeForm(test);
-    pushWidget(welcomeForm);
-
-	connect(ui->cancelBtn, &QPushButton::clicked,
-			this, &TestForm::canceled);
-	connect(ui->toTestsBtn, &QPushButton::clicked,
-			this, &TestForm::canceled);
+    replaceCurrentWidget(welcomeForm);
 }
 
-//  :: Destructor ::
-TestForm::~TestForm() {
-    delete ui;
-}
-
-//  :: Protected methods ::
-
-void TestForm::resizeEvent(QResizeEvent *event) {
-    QWidget::resizeEvent(event);
-    updateTestNameLabels();
-}
+TestForm::~TestForm() {}
 
 //  :: Private slots ::
 
@@ -69,10 +48,8 @@ void TestForm::showInstruction() {
     instructionLabel->show();
 }
 
-void TestForm::showResults(const ScaleResults &results) {
-	initResults(results);
-    ui->stackedWidget->setCurrentIndex(RESULTS_PAGE);
-    updateResultsTestNameLabel();
+void TestForm::showResults(const QList<ScaleResult> &results) {
+    replaceCurrentWidget(createResultsForm(results));
 }
 
 //  :: Private methods ::
@@ -105,54 +82,20 @@ QWidget *TestForm::createQuestionsForm(const Test &test) {
     return view;
 }
 
-//  :: Update test name labels ::
-void TestForm::updateTestNameLabels() {
-    switch (ui->stackedWidget->currentIndex()) {
-    case QUESTIONS_PAGE:
-        updateQuestionsTestNameLabel();
-        break;
-
-    case RESULTS_PAGE:
-        updateResultsTestNameLabel();
-        break;
-    }
-}
-void TestForm::updateQuestionsTestNameLabel() {
-    setQuestionsTestNameLabelText(m_test.getName());
-}
-void TestForm::updateResultsTestNameLabel() {
-    setResultsTestNameLabelText(m_test.getName());
+QWidget *TestForm::createResultsForm(const QList<ScaleResult> &results) {
+    auto resultsForm = new ResultsForm(m_test.getName(),
+                                       results,
+                                       this);
+    connect(resultsForm, &ResultsForm::finishTestButtonClicked,
+            this, &TestForm::canceled);
+    return resultsForm;
 }
 
-//  :: Set test name ::
-void TestForm::setTestName(const QString &testName) {
-    setQuestionsTestNameLabelText(testName);
-    setResultsTestNameLabelText(testName);
-}
-void TestForm::setQuestionsTestNameLabelText(const QString &testName) {
-    elidedText(ui->questionsTestNameLabel, testName);
-}
-void TestForm::setResultsTestNameLabelText(const QString &testName) {
-    elidedText(ui->resultsTestNameLabel, testName);
-}
-
-void TestForm::initResults(const ScaleResults &results) {
-	for(const auto &result : results) {
-		ui->results->layout()->addWidget(new ResultForm(result, this));
-    }
-}
-
-void TestForm::pushWidget(QWidget *widget) {
-    ui->stackedWidget->addWidget(widget);
-    ui->stackedWidget->setCurrentWidget(widget);
-    widget->show();
-}
-void TestForm::popCurrentWidget() {
-    auto widget = ui->stackedWidget->currentWidget();
-    ui->stackedWidget->removeWidget(widget);
-    widget->deleteLater();
-}
 void TestForm::replaceCurrentWidget(QWidget *widget) {
-    popCurrentWidget();
-    pushWidget(widget);
+    auto widgetsCount = layout()->count();
+    if (widgetsCount > 0) {
+        layout()->takeAt(0)->widget()->deleteLater();
+    }
+    layout()->addWidget(widget);
+    widget->show();
 }
