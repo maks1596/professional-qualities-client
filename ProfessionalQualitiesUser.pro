@@ -45,7 +45,6 @@ SOURCES += main.cpp\
     Entities/TestWithStatus/TestWithStatus.cpp \
     Entities/TestStatus/TestStatus.cpp \
     SharedStorage/SharedStorage.cpp \
-    Modules/Testing/Model/TestingModel.cpp \
     Entities/BindedAnswers/BindedAnswers.cpp \
     Modules/Registration/View/RegistrationForm.cpp \
     Modules/Registration/Model/RegistrationModel.cpp \
@@ -60,7 +59,8 @@ SOURCES += main.cpp\
     Modules/Questions/Assembler/QuestionsAssembler.cpp \
     ElidedText/ElidedText.cpp \
     Modules/Questions/Controller/QuestionsController.cpp \
-    Modules/Questions/Service/QuestionsService.cpp
+    Modules/Questions/Service/QuestionsService.cpp \
+    Forms/InstructionLabel/InstructionLabel.cpp
 
 HEADERS  += Modules/Tests/View/MainWindow.h \
     Configurator/Configurator.h \
@@ -84,7 +84,6 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     Entities/TestWithStatus/TestWithStatus.h \
     Entities/TestStatus/TestStatus.h \
     SharedStorage/SharedStorage.h \
-    Modules/Testing/Model/TestingModel.h \
     Entities/BindedAnswers/BindedAnswers.h \
     Modules/Registration/View/RegistrationForm.h \
     Modules/Registration/Model/RegistrationModel.h \
@@ -101,7 +100,8 @@ HEADERS  += Modules/Tests/View/MainWindow.h \
     ElidedText/ElidedText.h \
     Modules/Questions/Controller/QuestionsController.h \
     Modules/Questions/Service/QuestionsService.h \
-    Modules/Questions/IQuestionsOutput.h
+    Modules/Questions/IQuestionsOutput.h \
+    Forms/InstructionLabel/InstructionLabel.h
 
 FORMS    += Modules/Tests/View/MainWindow.ui \
     Modules/Testing/View/TestForm.ui \

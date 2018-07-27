@@ -27,8 +27,8 @@ public slots:
     void showMessage(const QString &message);
 
 signals:
+    void instructionButtonClicked();
     void finishTestButtonClicked();
-    void resultsCounted(const QList<ScaleResult> &scaleResults);
     void cancelButtonClicked();
 
 protected:

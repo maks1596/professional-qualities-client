@@ -21,6 +21,8 @@ QuestionsForm::QuestionsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->instructionButton, &QPushButton::clicked,
+            this, &QuestionsForm::instructionButtonClicked);
     connect(ui->cancelButton, &QPushButton::clicked,
             this, &QuestionsForm::cancelButtonClicked);
     connect(ui->finishTestButton, &QPushButton::clicked,

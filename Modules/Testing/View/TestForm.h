@@ -32,13 +32,12 @@ protected:
     void resizeEvent(QResizeEvent *event);
 
 private slots:
-	void onHelpBtnClicked();
-	void showQuestions();
-	void onFinishTestBtnClicked();
+	void showInstruction();
+    void showQuestions();
 	void showResults(const ScaleResults &results);
 
 private:
-    TestWelcomeForm *createTestWelcomeForm(const Test &test);
+    QWidget *createTestWelcomeForm(const Test &test);
     QWidget *createQuestionsForm(const Test &test);
 
     void updateTestNameLabels();
@@ -49,19 +48,12 @@ private:
     void setQuestionsTestNameLabelText(const QString &testName);
     void setResultsTestNameLabelText(const QString &testName);
 
-    void setElidedText(QLabel *label, const QString &text);
-    QString elidedText(const QLabel *label, const QString &text) const;
-
-	void initModel();
-	void initQuestions();
-	void sendAnswers(const Answers &answers);
 	void initResults(const ScaleResults &results);
 
     void pushWidget(QWidget *widget);
     void popCurrentWidget();
     void replaceCurrentWidget(QWidget *widget);
 
-	Test m_test;
-	TestingModel *m_model;
+    Test m_test;
 	Ui::TestForm *ui;
 };

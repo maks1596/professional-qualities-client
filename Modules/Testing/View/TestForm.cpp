@@ -4,13 +4,11 @@
 #include <QLabel>
 #include <QMessageBox>
 
-#ifdef QT_DEBUG
-#include <QTime>
-#endif
-
-#include "../Model/TestingModel.h"
 #include "../TestWelcomeForm/TestWelcomeForm.h"
 
+#include "ElidedText/ElidedText.h"
+
+#include "Forms/InstructionLabel/InstructionLabel.h"
 #include "Forms/ResultForm/ResultForm.h"
 
 #include "Modules/Questions/Assembler/QuestionsAssembler.h"
@@ -19,8 +17,6 @@
 #include "SharedStorage/SharedStorage.h"
 
 //  :: Constants ::
-
-const int INSTRUCTION_HELP_LABEL_MARGIN = 10;
 
 enum PageIndexes {
     WELCOME_PAGE,
@@ -45,38 +41,6 @@ TestForm::TestForm(const Test &test, QWidget *parent) :
 			this, &TestForm::canceled);
 	connect(ui->toTestsBtn, &QPushButton::clicked,
 			this, &TestForm::canceled);
-
-
-	connect(ui->helpBtn, &QPushButton::clicked,
-			this, &TestForm::onHelpBtnClicked);
-	connect(ui->finishBtn, &QPushButton::clicked,
-			this, &TestForm::onFinishTestBtnClicked);
-
-	initModel();
-
-#ifdef QT_DEBUG
-    auto randomAnswersButton = new QPushButton("Radom", this);
-    connect(randomAnswersButton, &QPushButton::clicked,
-            [this]() {
-        Answers answers;
-        auto answerOptions = m_test.getGeneralAnswerOptions();
-        int answerOptionsCount = answerOptions.size();
-        qsrand(QTime::currentTime().msecsSinceStartOfDay());
-
-        for (const auto &question : m_test.getQuestions()) {
-            if (m_test.getAnswerOptionsType() == AnswerOptionsType::UNIQUE) {
-                answerOptions = question.getAnswerOptions();
-                answerOptionsCount = answerOptions.size();
-            }
-
-            int answerIndex = qrand() % answerOptionsCount;
-            auto answerOption = answerOptions[answerIndex];
-            answers.append(Answer(question.getId(), answerOption.getId()));
-        }
-        sendAnswers(answers);
-    });
-    ui->buttonsHorizontalLayout->addWidget(randomAnswersButton);
-#endif
 }
 
 //  :: Destructor ::
@@ -98,20 +62,11 @@ void TestForm::showQuestions() {
     replaceCurrentWidget(questionsForm);
 }
 
-void TestForm::onHelpBtnClicked() {
-	QLabel *help = new QLabel();
-	help->setWindowTitle("Инструкция");
-	help->setText(m_test.getInstruction());
-	help->setWordWrap(true);
-    help->setMargin(INSTRUCTION_HELP_LABEL_MARGIN);
-
+void TestForm::showInstruction() {
+    QLabel *instructionLabel = new InstructionLabel(m_test.getInstruction());
 	connect(this, &TestForm::destroyed,
-			help, &QLabel::deleteLater);
-	help->show();
-}
-
-void TestForm::onFinishTestBtnClicked() {
-
+            instructionLabel, &QLabel::deleteLater);
+    instructionLabel->show();
 }
 
 void TestForm::showResults(const ScaleResults &results) {
@@ -122,10 +77,11 @@ void TestForm::showResults(const ScaleResults &results) {
 
 //  :: Private methods ::
 
-TestWelcomeForm *TestForm::createTestWelcomeForm(const Test &test) {
+QWidget *TestForm::createTestWelcomeForm(const Test &test) {
     auto welcomeForm = new TestWelcomeForm(test.getName(),
                                            test.getInstruction(),
                                            this);
+
     connect(welcomeForm, &TestWelcomeForm::cancelButtonClicked,
             this, &TestForm::canceled);
     connect(welcomeForm, &TestWelcomeForm::startTestButtonClicked,
@@ -141,6 +97,8 @@ QWidget *TestForm::createQuestionsForm(const Test &test) {
 
     connect(output, &IQuestionsOutput::cancelButtonClicked,
             this, &TestForm::canceled);
+    connect(output, &IQuestionsOutput::instructionButtonClicked,
+            this, &TestForm::showInstruction);
     connect(output, &IQuestionsOutput::resultsCounted,
             this, &TestForm::showResults);
 
@@ -172,38 +130,10 @@ void TestForm::setTestName(const QString &testName) {
     setResultsTestNameLabelText(testName);
 }
 void TestForm::setQuestionsTestNameLabelText(const QString &testName) {
-    setElidedText(ui->questionsTestNameLabel, testName);
+    elidedText(ui->questionsTestNameLabel, testName);
 }
 void TestForm::setResultsTestNameLabelText(const QString &testName) {
-    setElidedText(ui->resultsTestNameLabel, testName);
-}
-
-void TestForm::setElidedText(QLabel *label, const QString &text) {
-    label->setText(elidedText(label, text));
-}
-QString TestForm::elidedText(const QLabel *label, const QString &text) const {
-    auto font = label->font();
-    auto width = label->width();
-    QFontMetrics fontMetrics(font);
-    return fontMetrics.elidedText(text, Qt::ElideRight, width);
-}
-
-void TestForm::initModel() {
-	m_model = new TestingModel(this);
-	connect(m_model, &TestingModel::resultsCounted,
-			this, &TestForm::showResults);
-	connect(m_model, &TestingModel::error,
-			this, &TestForm::error);
-}
-
-void TestForm::initQuestions() {
-
-}
-
-void TestForm::sendAnswers(const Answers &answers) {
-	m_model->countResults(SharedStorage::getUserId(),
-						  m_test.getId(),
-						  answers);
+    elidedText(ui->resultsTestNameLabel, testName);
 }
 
 void TestForm::initResults(const ScaleResults &results) {
