@@ -39,7 +39,7 @@ private slots:
 
 private:
     TestWelcomeForm *createTestWelcomeForm(const Test &test);
-    QuestionsForm *createQuestionsForm(const Test &test);
+    QWidget *createQuestionsForm(const Test &test);
 
     void updateTestNameLabels();
     void updateQuestionsTestNameLabel();

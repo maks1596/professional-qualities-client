@@ -5,7 +5,7 @@
 #include "../Service/QuestionsService.h"
 #include "../View/QuestionsForm.h"
 
-std::tuple<QuestionsForm *,
+std::tuple<QWidget *,
            IQuestionsOutput *>
 QuestionsAssembler::assembly(const Test &test,
                              QWidget *parent)

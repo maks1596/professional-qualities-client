@@ -15,7 +15,6 @@
 
 #include "Modules/Questions/Assembler/QuestionsAssembler.h"
 #include "Modules/Questions/IQuestionsOutput.h"
-#include "Modules/Questions/View/QuestionsForm.h"
 
 #include "SharedStorage/SharedStorage.h"
 
@@ -135,12 +134,12 @@ TestWelcomeForm *TestForm::createTestWelcomeForm(const Test &test) {
     return welcomeForm;
 }
 
-QuestionsForm *TestForm::createQuestionsForm(const Test &test) {
-    QuestionsForm *view;
+QWidget *TestForm::createQuestionsForm(const Test &test) {
+    QWidget *view;
     IQuestionsOutput *output;
     std::tie(view, output) = QuestionsAssembler::assembly(test, this);
 
-    connect(view, &QuestionsForm::cancelButtonClicked,
+    connect(output, &IQuestionsOutput::cancelButtonClicked,
             this, &TestForm::canceled);
     connect(output, &IQuestionsOutput::resultsCounted,
             this, &TestForm::showResults);

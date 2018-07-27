@@ -14,5 +14,7 @@ protected:
     IQuestionsOutput(QObject *parent = nullptr) : QObject(parent) {}
 
 signals:
+    void cancelButtonClicked();
+    void instructionButtonClicked();
     void resultsCounted(const QList<ScaleResult> &results);
 };

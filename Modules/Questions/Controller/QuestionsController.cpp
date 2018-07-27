@@ -19,6 +19,10 @@ QuestionsForm *QuestionsController::getView() const {
 void QuestionsController::setView(QuestionsForm *view) {
     m_view = view;
 
+    connect(m_view, &QuestionsForm::cancelButtonClicked,
+            this, &QuestionsController::cancelButtonClicked);
+    connect(m_view, &QuestionsForm::instructionButtonClicked,
+            this, &QuestionsController::instructionButtonClicked);
     connect(m_view, &QuestionsForm::finishTestButtonClicked,
             this, &QuestionsController::countResultsAsync);
 }
