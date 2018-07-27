@@ -2,6 +2,8 @@
 
 #include <QWidget>
 
+class QPushButton;
+
 namespace Ui {
 class QuestionsForm;
 }
@@ -36,5 +38,8 @@ private:
     void setTestName(const QString &testName);
 
     QuestionsModel *m_model;
+#ifdef QT_DEBUG
+    QPushButton *m_randomAnswersButton;
+#endif
     Ui::QuestionsForm *ui;
 };

@@ -34,6 +34,7 @@ public:
     void setInstruction(const QString &instruction);
 
     const QList<QuestionWithAnswer> &getQuestionsWithAnswer() const;
+    QList<QuestionWithAnswer> &getQuestionsWithAnswer();
     void setQuestionsWithAnswer(const QList<QuestionWithAnswer> &questionsWithAnswer);
     void setQuestionsWithAnswer(const Questions &questions);
     void setQuestionsWithAnswer(const Questions &questions,
@@ -42,6 +43,9 @@ public:
     bool areAllQuestionsHaveAnswers() const;
     QList<Answer> getAnswers() const;
 
+#ifdef QT_DEBUG
+    void setRandomAnswers();
+#endif
 
 private:
     int m_testId;

@@ -1,6 +1,7 @@
 #include "QuestionsModel.h"
 
 #include <QStringListModel>
+#include <QTime>
 
 #include "Entities/Answer/Answer.h"
 #include "Entities/Test/Test.h"
@@ -27,7 +28,7 @@ QList<QuestionWithAnswer> makeQuestionsWithAnswer(const Questions &questions,
 
 QuestionsModel::QuestionsModel(const Test &test, QObject *parent)
     : QAbstractListModel(parent),
-      m_testId(),
+      m_testId(test.getId()),
       m_testName(test.getName()),
       m_instruction(test.getInstruction())
 {
@@ -135,8 +136,13 @@ void QuestionsModel::setInstruction(const QString &instruction) {
 const QList<QuestionWithAnswer> &QuestionsModel::getQuestionsWithAnswer() const {
     return m_questionsWithAnswer;
 }
+QList<QuestionWithAnswer> &QuestionsModel::getQuestionsWithAnswer() {
+    return m_questionsWithAnswer;
+}
 void QuestionsModel::setQuestionsWithAnswer(const QList<QuestionWithAnswer> &questionsWithAnswer) {
+    beginResetModel();
     m_questionsWithAnswer = questionsWithAnswer;
+    endResetModel();
 }
 
 void QuestionsModel::setQuestionsWithAnswer(const Questions &questions) {
@@ -173,6 +179,20 @@ QList<Answer> QuestionsModel::getAnswers() const {
 
     return answers;
 }
+
+#ifdef QT_DEBUG
+void QuestionsModel::setRandomAnswers() {
+    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+
+    beginResetModel();
+    for (auto &questionWithAnswer : getQuestionsWithAnswer()) {
+        auto answerOptionsCount = questionWithAnswer.getAnswerOptions().size();
+        auto answerIndex = qrand() % answerOptionsCount;
+        questionWithAnswer.setAnswerIndex(answerIndex);
+    }
+    endResetModel();
+}
+#endif
 
 //  :: Private functions ::
 

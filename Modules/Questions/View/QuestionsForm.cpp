@@ -25,6 +25,11 @@ QuestionsForm::QuestionsForm(QWidget *parent) :
             this, &QuestionsForm::cancelButtonClicked);
     connect(ui->finishTestButton, &QPushButton::clicked,
             this, &QuestionsForm::finishTestButtonClicked);
+
+#ifdef QT_DEBUG
+    m_randomAnswersButton = new QPushButton("Radom", this);
+    ui->buttonsHorizontalLayout->addWidget(m_randomAnswersButton);
+#endif
 }
 
 QuestionsForm::~QuestionsForm() {
@@ -40,6 +45,11 @@ void QuestionsForm::setModel(QuestionsModel *model) {
     m_model = model;
     auto qmlContext = ui->questionsListQuickWidget->rootContext();
     qmlContext->setContextProperty(MODEL_PROPERTY_NAME, m_model);
+
+#ifdef QT_DEBUG
+    connect(m_randomAnswersButton, &QPushButton::clicked,
+            getModel(), &QuestionsModel::setRandomAnswers);
+#endif
 }
 
 //  :: Public slots ::
